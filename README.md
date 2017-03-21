@@ -1,11 +1,11 @@
 # pipe2pam
 Parse individual pam images from an ffmpeg pipe when output video codec(-c:v) is set to pam and format(-f) is set to image2pipe. Pam is an image type similar to ppm, pbm, and pgm. It has a small header that is followed by an uncompressed array of pixel data.
 
-##installation:
+###installation:
 ``` 
 npm install pipe2pam --save
 ```
-##usage:
+###usage:
 ```
 const P2P = require('pipe2pam');
 const spawn = require('child_process').spawn;
