@@ -8,7 +8,7 @@ function Pipe2Pam() {
     if (!(this instanceof Pipe2Pam)) {
         return new Pipe2Pam();
     }
-    Transform.call(this);
+    Transform.call(this, {objectMode: true});//set objectMode to true so that we can pipe objects instead of just strings
     this._buffer = Buffer.allocUnsafe(0);//needed if pam image byte length is larger than chunk size(mac 8192, unbuntu 65535, windows ~ 93000+)
     this._headers = null;//header data, should be cached and used for all subsequent pam images in current piping
     this._soi = null;//start of image (P7\n)
@@ -59,23 +59,33 @@ Pipe2Pam.prototype._transform = function (chunk, encoding, callback) {
         }
     }
     if (this._headers !== null) {
-        let findingPam = true;
-        while (findingPam) {
-            if (bufferLength > this._eoi) {
-                this.emit('pam', this._buffer.slice(this._soi, this._eoi), this._headers, this._loh, this._loi);
-                this._soi = this._eoi;
-                this._eoi = this._soi + this._loi;
+        while (true) {
+            if (bufferLength < this._eoi) {
+                if (this._soi > 0) {
+                    this._buffer = this._buffer.slice(this._soi);
+                }
+                this._soi = 0;
+                this._eoi = this._loi;
+                break;
             } else if (bufferLength === this._eoi) {
-                this.emit('pam', this._buffer.slice(this._soi, this._eoi), this._headers, this._loh, this._loi);
+                let data = {pam: this._buffer.slice(this._soi, this._eoi), pixels: this._buffer.slice(this._loh, this._eoi), width: this._headers.width, height: this._headers.height, depth: this._headers.depth, maxval: this._headers.maxval};
+                this.emit('pam', data);
+                //only push data if other pipe is consuming it, otherwise pipe will stop flowing when highwatermark(16) is reached
+                if (this._readableState.pipesCount > 0) {
+                    this.push(data);
+                }
                 this._buffer = Buffer.allocUnsafe(0);
                 this._soi = 0;
                 this._eoi = this._loi;
-                findingPam = false;
+                break;
             } else {
-                this._buffer = this._buffer.slice(this._soi);
-                this._soi = 0;
-                this._eoi = this._loi;
-                findingPam = false;
+                let data = {pam: this._buffer.slice(this._soi, this._eoi), pixels: this._buffer.slice(this._loh, this._eoi), width: this._headers.width, height: this._headers.height, depth: this._headers.depth, maxval: this._headers.maxval};
+                this.emit('pam', data);
+                if (this._readableState.pipesCount > 0) {
+                    this.push(data);
+                }
+                this._soi = this._eoi;
+                this._eoi = this._soi + this._loi;
             }
         }
     }
