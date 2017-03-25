@@ -1,0 +1,37 @@
+{
+  "name": "pipe2pam",
+  "version": "1.0.0",
+  "description": "Parse individual pam images from an ffmpeg pipe when output video codec(-c:v) is set to pam and format(-f) is set to image2pipe.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinGodell/pipe2pam.git"
+  },
+  "keywords": [
+    "ffmpeg",
+    "pam",
+    "image2pipe",
+    "rgb24",
+    "rgba",
+    "rgb48be",
+    "rgba64be",
+    "gray",
+    "ya8",
+    "gray16be",
+    "ya16be",
+    "monob"
+  ],
+  "author": "Kevin Godell <kevin.godell@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/kevinGodell/pipe2pam/issues"
+  },
+  "homepage": "https://github.com/kevinGodell/pipe2pam#readme",
+  "dependencies": {
+    "stream": "0.0.2",
+    "util": "^0.10.3"
+  }
+}
