@@ -14,32 +14,46 @@ let counter = 0;
 const params = [
     '-loglevel',
     'quiet',
+    '-max_delay',
+    '0',
+    '-f',
+    'rtsp',
+    '-rtsp_transport',
+    'udp',
+    '-stimeout',
+    '10000000',
     '-i',
     'rtsp://192.168.1.9:554/user=admin_password=pass_channel=1_stream=0.sdp',
-    '-frames',
-    '100',
-    '-pix_fmt',
-    'rgb24',
+    '-an',
     '-c:v',
     'pam',
+    '-f',
+    'image2pipe',
+    '-pix_fmt',
+    //'rgb24',
+    //'rgba',
+    //'rgb48be',
+    //'rgba64be',
+    'gray',
+    //'ya8',
+    //'gray16be',
+    //'ya16be',
+    //'monob',
     '-vf',
     'fps=1',
     '-vsync',
     '0',
-    '-f',
-    'image2pipe',
     '-s',
     '640x360',
+    '-frames',
+    '100',
     'pipe:1'
 ];
 
 const p2p = new P2P();
 
-p2p.on('pam', function(pam, headers, sop, length) {
-    console.log(pam);
-    console.log(headers);
-    console.log('size of pam image', length);
-    console.log('start index of pixels', sop);
+p2p.on('pam', function(data) {
+    console.log(data);
     console.log('received pam', ++counter);
 });
 
@@ -54,3 +68,6 @@ ffmpeg.on('exit', function(code, signal) {
 });
 
 ffmpeg.stdout.pipe(p2p);
+```
+
+Pipe2Pam dispatches a "pam" event, which contains an object. It can also pipe the object to a pipe reader. The object contains the entire pam image, plus additional data such as width, height, depth, maxval, and an array of pixels.
