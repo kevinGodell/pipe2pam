@@ -1,7 +1,7 @@
 # pipe2pam
 Parse individual pam images from an ffmpeg pipe when the output video codec (*-c:v*) is set to **pam** and the format (*-f*) is set to **image2pipe**. The supported pixel formats (*-pix_fmt*) are **rgb24**, **rgba**, **gray**, and **monob**. Pam is an image type similar to ppm, pbm, and pgm. It has a small header that is followed by an uncompressed array of pixel data. This can be used as an alternate way to get pixel data instead of generating jpegs and using canvas.
 
-The follow example uses ffmpeg's **testsrc** to simulate a video input and generates 100 downscaled grayscale pam images at a rate of 1 per second. The pam images are piped in from ffmpeg's stdout and output a pam image object:
+The following [example](https://github.com/kevinGodell/pipe2pam/blob/master/examples/example.js) uses ffmpeg's **testsrc** to simulate a video input and generates 100 downscaled grayscale pam images at a rate of 1 per second. The pam images are piped in from ffmpeg's stdout and output a pam image object:
 
 ###installation:
 ``` 
