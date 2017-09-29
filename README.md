@@ -1,5 +1,7 @@
 # pipe2pam
-Parse individual pam images from an ffmpeg pipe when output video codec(-c:v) is set to pam and format(-f) is set to image2pipe. Pam is an image type similar to ppm, pbm, and pgm. It has a small header that is followed by an uncompressed array of pixel data.
+Parse individual pam images from an ffmpeg pipe when the output video codec (*-c:v*) is set to **pam** and the format (*-f*) is set to **image2pipe**. The supported pixel formats (*-pix_fmt*) are **rgb24**, **rgba**, **gray**, and **monob**. Pam is an image type similar to ppm, pbm, and pgm. It has a small header that is followed by an uncompressed array of pixel data. This can be used as an alternate way to get pixel data instead of generating jpegs and using canvas.
+
+The follow example uses ffmpeg's **testsrc** to simulate a video input and generates 100 downscaled grayscale pam images at a rate of 1 per second. The pam images are piped in from ffmpeg's stdout and output a pam image object:
 
 ###installation:
 ``` 
@@ -7,23 +9,18 @@ npm install pipe2pam --save
 ```
 ###usage:
 ```
-const P2P = require('pipe2pam');
+const P2P = require('../index');
 const spawn = require('child_process').spawn;
 let counter = 0;
 
 const params = [
     '-loglevel',
     'quiet',
-    '-max_delay',
-    '0',
+    '-re',
     '-f',
-    'rtsp',
-    '-rtsp_transport',
-    'udp',
-    '-stimeout',
-    '10000000',
+    'lavfi',
     '-i',
-    'rtsp://192.168.1.9:554/user=admin_password=pass_channel=1_stream=0.sdp',
+    'testsrc=size=1920x1080:rate=15',
     '-an',
     '-c:v',
     'pam',
@@ -32,19 +29,10 @@ const params = [
     '-pix_fmt',
     //'rgb24',
     //'rgba',
-    //'rgb48be',
-    //'rgba64be',
     'gray',
-    //'ya8',
-    //'gray16be',
-    //'ya16be',
     //'monob',
     '-vf',
-    'fps=1',
-    '-vsync',
-    '0',
-    '-s',
-    '640x360',
+    'fps=1,scale=iw*1/6:ih*1/6',
     '-frames',
     '100',
     'pipe:1'
@@ -70,4 +58,4 @@ ffmpeg.on('exit', function(code, signal) {
 ffmpeg.stdout.pipe(p2p);
 ```
 
-Pipe2Pam dispatches a "pam" event, which contains an object. It can also pipe the object to a pipe reader. The object contains the entire pam image, plus additional data such as width, height, depth, maxval, and an array of pixels.
+Pipe2Pam dispatches a "pam" event, which contains a pam image object. The object contains the entire pam image, plus additional data such as width, height, depth, maxval, tupltype, and an array of pixels. It can also pipe the object to a pipe reader for further use, such as pixel comparison between 2 pam images.

@@ -22,7 +22,12 @@
     "ya8",
     "gray16be",
     "ya16be",
-    "monob"
+    "monob",
+    "pbm",
+    "pgm",
+    "ppm",
+    "pnm",
+    "pixel"
   ],
   "author": "Kevin Godell <kevin.godell@gmail.com>",
   "license": "Apache-2.0",

@@ -62,6 +62,7 @@ Pipe2Pam.prototype._findHeaders = function (chunk) {
     }
 };
 
+
 //find complete pam image and pass along to pipe and emit event
 Pipe2Pam.prototype._findPam = function (chunk) {
     this._buffer = Buffer.concat([this._buffer, chunk]);
@@ -74,22 +75,25 @@ Pipe2Pam.prototype._findPam = function (chunk) {
             this._soi = 0;
             this._eoi = this._loi;
             break;
-        } else {
+        } else if (bufferLength === this._eoi) {
             let data = {pam: this._buffer.slice(this._soi, this._eoi), pixels: this._buffer.slice(this._loh, this._eoi), width: this._headers.width, height: this._headers.height, depth: this._headers.depth, maxval: this._headers.maxval, tupltype: this._headers.tupltype};
             this.emit('pam', data);
             //only push data if other pipe is consuming it, otherwise pipe will stop flowing when highwatermark(16) is reached
             if (this._readableState.pipesCount > 0) {
                 this.push(data);
             }
-            if (bufferLength === this._eoi) {
-                this._buffer = Buffer.allocUnsafe(0);
-                this._soi = 0;
-                this._eoi = this._loi;
-                break;
-            } else {
-                this._soi = this._eoi;
-                this._eoi = this._soi + this._loi;
+            this._buffer = Buffer.allocUnsafe(0);
+            this._soi = 0;
+            this._eoi = this._loi;
+            break;
+        } else {
+            let data = {pam: this._buffer.slice(this._soi, this._eoi), pixels: this._buffer.slice(this._loh, this._eoi), width: this._headers.width, height: this._headers.height, depth: this._headers.depth, maxval: this._headers.maxval, tupltype: this._headers.tupltype};
+            this.emit('pam', data);
+            if (this._readableState.pipesCount > 0) {
+                this.push(data);
             }
+            this._soi = this._eoi;
+            this._eoi = this._soi + this._loi;
         }
     }
 };
