@@ -45,3 +45,6 @@ jspm_packages
 /libs/
 /tests
 linktomodules.txt
+/tests/pam-diff.js
+/libs/pamdiff.js
+/libs/pipe2pam.js
