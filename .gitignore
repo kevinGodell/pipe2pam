@@ -39,12 +39,6 @@ jspm_packages
 # Intellij config
 .idea/
 
-
-/index2.js
-/app.js
-/libs/
-/tests
+index2.js
+app.js
 linktomodules.txt
-/tests/pam-diff.js
-/libs/pamdiff.js
-/libs/pipe2pam.js

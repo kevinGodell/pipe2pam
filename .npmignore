@@ -38,4 +38,10 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-/examples
+# Intellij config
+.idea
+
+index2.js
+app.js
+linktomodules.txt
+examples
