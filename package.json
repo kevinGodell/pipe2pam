@@ -35,8 +35,5 @@
     "url": "https://github.com/kevinGodell/pipe2pam/issues"
   },
   "homepage": "https://github.com/kevinGodell/pipe2pam#readme",
-  "dependencies": {
-    "stream": "0.0.2",
-    "util": "^0.10.3"
-  }
+  "dependencies": {}
 }
