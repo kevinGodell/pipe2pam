@@ -4,7 +4,7 @@ Parse individual pam images from an ffmpeg pipe when the output video codec (*-c
 The following [example](https://github.com/kevinGodell/pipe2pam/blob/master/examples/example.js) uses ffmpeg's **testsrc** to simulate a video input and generates 100 downscaled grayscale pam images at a rate of 1 per second. The pam images are piped in from ffmpeg's stdout and output a pam image object:
 
 
-###installing and running the example:
+### installing and running the example:
 ```
 git clone https://github.com/kevinGodell/pipe2pam.git
 
