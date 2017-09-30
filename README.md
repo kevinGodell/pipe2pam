@@ -9,7 +9,7 @@ npm install pipe2pam --save
 ```
 ###usage:
 ```
-const P2P = require('../index');
+const P2P = require('pipe2pam');
 const spawn = require('child_process').spawn;
 let counter = 0;
 
