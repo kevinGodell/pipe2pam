@@ -41,7 +41,4 @@ jspm_packages
 # Intellij config
 .idea
 
-index2.js
-app.js
-linktomodules.txt
 examples
