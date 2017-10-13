@@ -30,7 +30,7 @@
     "pixel"
   ],
   "author": "Kevin Godell <kevin.godell@gmail.com>",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kevinGodell/pipe2pam/issues"
   },
