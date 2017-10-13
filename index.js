@@ -13,18 +13,7 @@ function Pipe2Pam() {
     Transform.call(this, {objectMode: true});
     //needed if pam image byte length is larger than chunk size(mac 8192, unbuntu 65535, windows ~ 93000+)
     this._buffer = Buffer.allocUnsafe(0);
-    //header data, should be cached and used for all subsequent pam images in current piping
-    this._headers = null;
-    //start of image (P7\n)
-    this._soi = null;
-    //byte length of headers (from P7/n to ENDHDR\n), also is start index of pixels
-    this._loh = null;
-    //byte length of pixels (this._headers.WIDTH * this._headers.HEIGHT * this._headers.DEPTH * MAXVAL-multiplier)
-    this._lop = null;
-    //byte length of image
-    this._loi = null;
-    //should be this._soi + this._loi(this._loh + this._lop)
-    this._eoi = null;
+    //parsing first chunk should be looking for image header info
     this._parseChunk = Pipe2Pam.prototype._findHeaders;
 }
 
@@ -43,12 +32,12 @@ Pipe2Pam.prototype._parseHeaders = function(data) {
 
 //find pam headers and reassign this._parseChunk to Pipe2Pam.prototype._findPam
 Pipe2Pam.prototype._findHeaders = function (chunk) {
-    for (let i = 0, len = chunk.length; i < len; i++) {
+    for (let i = 0, length = chunk.length; i < length; i++) {
         //P7\n = 0x50 0x37 0x0A
         if (chunk[i] === 0x50 && chunk[i + 1] === 0x37 && chunk[i + 2] === 0x0A) {
             this._soi = i;
             i += 56;
-            for (i; i < len; i++) {
+            for (i; i < length; i++) {
                 //DR\n = 0x44 0x52 0x0A
                 if (chunk[i] === 0x44 && chunk[i + 1] === 0x52 && chunk[i + 2] === 0x0A) {
                     //cache headers
@@ -114,12 +103,12 @@ Pipe2Pam.prototype._transform = function (chunk, encoding, callback) {
 //reset some values
 Pipe2Pam.prototype._flush = function (callback) {
     this._buffer = Buffer.allocUnsafe(0);
-    this._headers = null;
-    this._soi = null;
-    this._loh = null;
-    this._lop = null;
-    this._loi = null;
-    this._eoi = null;
+    delete this._headers;
+    delete this._soi;
+    delete this._loh;
+    delete this._lop;
+    delete this._loi;
+    delete this._eoi;
     this._parseChunk = Pipe2Pam.prototype._findHeaders;
     callback();
 };
