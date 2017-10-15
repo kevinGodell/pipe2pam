@@ -57,17 +57,17 @@ const params2 = [
 
 const p2p = new P2P();
 
-p2p.on('pam', function(data) {
+p2p.on('pam', (data) => {
     console.log(`received pam1: ${++counter} data: ${data}`);
 });
 
 const ffmpeg = spawn('ffmpeg', params);
 
-ffmpeg.on('error', function(error) {
+ffmpeg.on('error', (error) => {
     console.log(error);
 });
 
-ffmpeg.on('exit', function(code, signal) {
+ffmpeg.on('exit', (code, signal) => {
     console.log(`exit ${code} ${signal}`);
 });
 
@@ -77,17 +77,17 @@ ffmpeg.stdout.pipe(p2p);
 
 const p2p2 = new P2P();
 
-p2p2.on('pam', function(data) {
+p2p2.on('pam', (data) => {
     console.log(`received pam2: ${++counter2} data: ${data}`);
 });
 
 const ffmpeg2 = spawn('ffmpeg', params2);
 
-ffmpeg2.on('error', function(error) {
+ffmpeg2.on('error', (error) => {
     console.log(error);
 });
 
-ffmpeg2.on('exit', function(code, signal) {
+ffmpeg2.on('exit', (code, signal) => {
     console.log(`exit ${code} ${signal}`);
 });
 

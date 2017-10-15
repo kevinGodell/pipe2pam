@@ -31,18 +31,18 @@ const params = [
 
 const p2p = new P2P();
 
-p2p.on('pam', function(data) {
+p2p.on('pam', (data) => {
     //pam data object has .depth .height .maxval .pam .pixels .tupltype .width
     console.log(`received pam: ${++counter}, depth: ${data.depth}, height: ${data.height}, maxval: ${data.maxval}, pam.length: ${data.pam.length}, pixels.length: ${data.pixels.length}, tupltype: ${data.tupltype}, width: ${data.width}`);
 });
 
 const ffmpeg = spawn('ffmpeg', params);
 
-ffmpeg.on('error', function(error) {
+ffmpeg.on('error', (error) => {
     console.log(error);
 });
 
-ffmpeg.on('exit', function(code, signal) {
+ffmpeg.on('exit', (code, signal) => {
     console.log(`exit ${code} ${signal}`);
 });
 
