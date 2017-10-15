@@ -58,3 +58,26 @@ ffmpeg.on('exit', function(code, signal) {
 
 ffmpeg.stdout.pipe(p2p);
 ```
+
+### testing:
+
+Clone the repository
+
+```
+git clone https://github.com/kevinGodell/pipe2pam.git
+```
+
+Change into the directory
+```
+cd pipe2pam
+```
+
+Initialize with npm
+```
+npm install
+```
+
+Start the tests
+```
+npm test
+```
