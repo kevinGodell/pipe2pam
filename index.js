@@ -75,7 +75,7 @@ Pipe2Pam.prototype._findPam = function (chunk) {
             this._eoi = this._loi;
             break;
         } else {
-            let data = {pam: this._buffer.slice(this._soi, this._eoi), pixels: this._buffer.slice(this._soi + this._loh, this._eoi), width: this._headers.width, height: this._headers.height, depth: this._headers.depth, maxval: this._headers.maxval, tupltype: this._headers.tupltype};
+            let data = {pam: this._buffer.slice(this._soi, this._eoi), headers: this._buffer.slice(this._soi, this._loh), pixels: this._buffer.slice(this._soi + this._loh, this._eoi), width: this._headers.width, height: this._headers.height, depth: this._headers.depth, maxval: this._headers.maxval, tupltype: this._headers.tupltype};
             this.emit('pam', data);
             //only push data if other pipe is consuming it, otherwise pipe will stop flowing when highwatermark(16) is reached
             if (this._readableState.pipesCount > 0) {
