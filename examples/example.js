@@ -33,7 +33,8 @@ const p2p = new P2P();
 
 p2p.on('pam', (data) => {
     //pam data object has .depth .height .maxval .pam .pixels .tupltype .width
-    console.log(`received pam: ${++counter}, depth: ${data.depth}, height: ${data.height}, maxval: ${data.maxval}, pam.length: ${data.pam.length}, pixels.length: ${data.pixels.length}, tupltype: ${data.tupltype}, width: ${data.width}`);
+    console.log(data.headers.toString());
+    console.log(`received pam: ${++counter}, depth: ${data.depth}, height: ${data.height}, maxval: ${data.maxval}, pam.length: ${data.pam.length}, headers.length: ${data.headers.length}, pixels.length: ${data.pixels.length}, tupltype: ${data.tupltype}, width: ${data.width}`);
 });
 
 const ffmpeg = spawn('ffmpeg', params);
