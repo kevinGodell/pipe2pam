@@ -48,7 +48,7 @@ const p2p = new P2P();
 
 p2p.on('pam', (data) => {
     pamCounter++;
-    assert(data.width * data.height * data.depth === data.pixels.length, `Pixels are not the correct length ${data.width * data.height * data.depth} vs ${data.pixels.length}`);
+    assert(data.width * data.height * data.depth === data.pixels.length, 'Pixels are not the correct length');
     const pam = data.pam;
     assert(pam[0] === 0x50 && pam[1] === 0x37 && pam[2] === 0x0A, 'Start of pam is not correct');
 });
@@ -66,4 +66,3 @@ ffmpeg.on('exit', (code, signal) => {
 });
 
 ffmpeg.stdout.pipe(p2p);
-//equal
