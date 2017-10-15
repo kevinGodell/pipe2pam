@@ -41,18 +41,18 @@ const params = [
 
 const p2p = new P2P();
 
-p2p.on('pam', function(data) {
+p2p.on('pam', (data) => {
     console.log(data);
     console.log('received pam', ++counter);
 });
 
 const ffmpeg = spawn('ffmpeg', params);
 
-ffmpeg.on('error', function(error) {
+ffmpeg.on('error', (error) => {
     console.log(error);
 });
 
-ffmpeg.on('exit', function(code, signal) {
+ffmpeg.on('exit', (code, signal) => {
     console.log('exit', code, signal);
 });
 
