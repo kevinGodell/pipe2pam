@@ -14,13 +14,13 @@ function Pipe2Pam() {
     //needed if pam image byte length is larger than chunk size(mac 8192, unbuntu 65535, windows ~ 93000+)
     this._buffer = Buffer.allocUnsafe(0);
     //parsing first chunk should be looking for image header info
-    this._parseChunk = Pipe2Pam.prototype._findHeaders;
+    this._parseChunk = this._findHeaders;
 }
 
 util.inherits(Pipe2Pam, Transform);
 
 //parse headers into object with values for width, height, depth, maxval, and tupltype
-Pipe2Pam.prototype._parseHeaders = function(data) {
+Pipe2Pam.prototype._parseHeaders = function (data) {
     const headersArr = data.toString().toLowerCase().split('\n');
     const headersObj = {};
     for (let i = 0, headerArr, length = headersArr.length; i < length; i++) {
@@ -51,7 +51,7 @@ Pipe2Pam.prototype._findHeaders = function (chunk) {
                     //eoi position
                     this._eoi = this._soi + this._loi;
                     //only needed to find first header, now only parse for whole pam image
-                    this._parseChunk = Pipe2Pam.prototype._findPam;
+                    this._parseChunk = this._findPam;
                     //start parsing this chunk for pam image
                     this._parseChunk(chunk);
                     break;
@@ -75,7 +75,7 @@ Pipe2Pam.prototype._findPam = function (chunk) {
             this._eoi = this._loi;
             break;
         } else {
-            let data = {pam: this._buffer.slice(this._soi, this._eoi), headers: this._buffer.slice(this._soi, this._loh), pixels: this._buffer.slice(this._soi + this._loh, this._eoi), width: this._headers.width, height: this._headers.height, depth: this._headers.depth, maxval: this._headers.maxval, tupltype: this._headers.tupltype};
+            let data = {pam: this._buffer.slice(this._soi, this._eoi), headers: this._buffer.slice(this._soi, this._soi + this._loh), pixels: this._buffer.slice(this._soi + this._loh, this._eoi), width: this._headers.width, height: this._headers.height, depth: this._headers.depth, maxval: this._headers.maxval, tupltype: this._headers.tupltype};
             if (this._readableState.pipesCount > 0) {
                 this.push(data);
             }
@@ -110,7 +110,7 @@ Pipe2Pam.prototype._flush = function (callback) {
     delete this._lop;
     delete this._loi;
     delete this._eoi;
-    this._parseChunk = Pipe2Pam.prototype._findHeaders;
+    this._parseChunk = this._findHeaders;
     callback();
 };
 
