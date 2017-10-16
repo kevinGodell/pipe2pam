@@ -1,7 +1,11 @@
 // jshint esversion: 6, globalstrict: true, strict: true
 'use strict';
 
-console.time('==========> multiple pams packed into single piped chunk');
+const fps = 100;
+
+const scale = 1/50;
+
+console.time(`=====> fps=${fps} scale=${scale} multiple pams packed into single piped chunk`);
 
 const assert = require('assert');
 
@@ -11,16 +15,13 @@ const spawn = require('child_process').spawn;
 
 const pamCount = 10;
 
-const fps = 100;
-
-const scale = 1/50;
-
 let pamCounter = 0;
 
 const params = [
     /* log info to console */
     '-loglevel',
-    'info',
+    'quiet',
+    '-stats',
 
     /* use an artificial video input */
     '-re',
@@ -49,7 +50,7 @@ const p2p = new P2P();
 p2p.on('pam', (data) => {
     pamCounter++;
     assert(data.width * data.height * data.depth === data.pixels.length, 'Pixels are not the correct length');
-    assert(data.headers.length + data.pixels.length === data.pam.length, 'Headers plus pixels are not the correct length');
+    assert(data.headers.length + data.pixels.length === data.pam.length, `${data.headers.length} ${data.pixels.length} ${data.pam.length} Headers plus pixels are not the correct length`);
     const pam = data.pam;
     assert(pam[0] === 0x50 && pam[1] === 0x37 && pam[2] === 0x0A, 'Start of pam is not correct');
 });
@@ -63,7 +64,7 @@ ffmpeg.on('error', (error) => {
 ffmpeg.on('exit', (code, signal) => {
     assert(code === 0, `FFMPEG exited with code ${code} and signal ${signal}`);
     assert(pamCounter === pamCount, `did not get ${pamCount} pams`);
-    console.timeEnd('==========> multiple pams packed into single piped chunk');
+    console.timeEnd(`=====> fps=${fps} scale=${scale} multiple pams packed into single piped chunk`);
 });
 
 ffmpeg.stdout.pipe(p2p);

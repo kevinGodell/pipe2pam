@@ -1,7 +1,11 @@
 // jshint esversion: 6, globalstrict: true, strict: true
 'use strict';
 
-console.time('==========> single pam split between multiple piped chunks');
+const fps = 1;
+
+const scale = 1/2;
+
+console.time(`=====> fps=${fps} scale=${scale} single pam split between multiple piped chunks`);
 
 const assert = require('assert');
 
@@ -11,16 +15,13 @@ const spawn = require('child_process').spawn;
 
 const pamCount = 10;
 
-const fps = 1;
-
-const scale = 1/2;
-
 let pamCounter = 0;
 
 const params = [
     /* log info to console */
     '-loglevel',
-    'info',
+    'quiet',
+    '-stats',
 
     /* use an artificial video input */
     '-re',
@@ -63,7 +64,7 @@ ffmpeg.on('error', (error) => {
 ffmpeg.on('exit', (code, signal) => {
     assert(code === 0, `FFMPEG exited with code ${code} and signal ${signal}`);
     assert(pamCounter === pamCount, `did not get ${pamCount} pams`);
-    console.timeEnd('==========> single pam split between multiple piped chunks');
+    console.timeEnd(`=====> fps=${fps} scale=${scale} single pam split between multiple piped chunks`);
 });
 
 ffmpeg.stdout.pipe(p2p);
