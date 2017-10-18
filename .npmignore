@@ -43,3 +43,4 @@ jspm_packages
 
 examples
 tests
+.travis.yml
