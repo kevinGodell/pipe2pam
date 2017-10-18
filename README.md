@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/kevinGodell/pipe2pam.svg?branch=master)](https://travis-ci.org/kevinGodell/pipe2pam)
 # pipe2pam
 Parse individual pam images from an ffmpeg pipe when the output video codec (*-c:v*) is set to **pam** and the format (*-f*) is set to **image2pipe**. The supported pixel formats (*-pix_fmt*) are **rgb24**, **rgba**, **gray**, and **monob**. Pam is an image type similar to ppm, pbm, and pgm. It has a small header that is followed by an uncompressed array of pixel data. This can be used as an alternate way to get pixel data instead of generating jpegs and using canvas. It is currently being used for a video motion detection project.
 
