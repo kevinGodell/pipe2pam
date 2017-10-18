@@ -63,7 +63,7 @@ ffmpeg.on('error', (error) => {
 
 ffmpeg.on('exit', (code, signal) => {
     assert(code === 0, `FFMPEG exited with code ${code} and signal ${signal}`);
-    assert(pamCounter === pamCount, `did not get ${pamCount} pams`);
+    assert(pamCounter !== pamCount, `did not get ${pamCount} pams`);
     console.timeEnd(`=====> fps=${fps} scale=${scale} multiple pams packed into single piped chunk`);
 });
 
