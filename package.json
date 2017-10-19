@@ -1,6 +1,6 @@
 {
   "name": "pipe2pam",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "description": "Parse individual pam images from an ffmpeg pipe when output video codec(-c:v) is set to pam and format(-f) is set to image2pipe.",
   "main": "index.js",
   "scripts": {
