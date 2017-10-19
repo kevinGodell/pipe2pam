@@ -115,3 +115,4 @@ Pipe2Pam.prototype._flush = function (callback) {
 };
 
 module.exports = Pipe2Pam;
+//todo: to avoid multiple if-else statements, in findHeader function, change chunk parser based on whether receiving single image per chunk, multiple images per chunk, or single image spread across multiple chunks
