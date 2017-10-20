@@ -44,5 +44,4 @@ jspm_packages
 examples
 tests
 .travis.yml
-index2.js
-index-backup.js
+indexBackup.js
