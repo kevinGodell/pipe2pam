@@ -117,7 +117,6 @@ Pipe2Pam.prototype._transform = function (chunk, encoding, callback) {
 
 //reset some values
 Pipe2Pam.prototype._flush = function (callback) {
-    //this._buffer = Buffer.allocUnsafe(0);
     delete this._headers;
     delete this._soi;
     delete this._loh;
