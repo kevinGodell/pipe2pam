@@ -13,7 +13,7 @@ const P2P = require('../index');
 
 const spawn = require('child_process').spawn;
 
-const pamCount = 10;
+const pamCount = 1000;
 
 let pamCounter = 0;
 
