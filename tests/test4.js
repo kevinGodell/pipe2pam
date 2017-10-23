@@ -5,7 +5,7 @@ const fps = 100;
 
 const scale = 1/2;
 
-console.time(`=====> fps=${fps} scale=${scale} single pam split between multiple piped chunks`);
+console.time(`=====> fps=${fps} scale=${scale} single pam split between multiple piped chunks with overlap`);
 
 const assert = require('assert');
 
@@ -64,7 +64,7 @@ ffmpeg.on('error', (error) => {
 ffmpeg.on('exit', (code, signal) => {
     assert(code === 0, `FFMPEG exited with code ${code} and signal ${signal}`);
     assert(pamCounter === pamCount, `did not get ${pamCount} pams`);
-    console.timeEnd(`=====> fps=${fps} scale=${scale} single pam split between multiple piped chunks`);
+    console.timeEnd(`=====> fps=${fps} scale=${scale} single pam split between multiple piped chunks with overlap`);
 });
 
 ffmpeg.stdout.pipe(p2p);
