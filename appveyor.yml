@@ -23,9 +23,6 @@ environment:
       ffmpeg_version: latest
       ffmpeg_platform: win32
 
-cache:
-  - node_modules
-
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
   - npm install
