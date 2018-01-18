@@ -1,5 +1,5 @@
-// jshint esversion: 6, globalstrict: true, strict: true
 'use strict';
+
 const P2P = require('../index');
 const spawn = require('child_process').spawn;
 let counter = 0;
