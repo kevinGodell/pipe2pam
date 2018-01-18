@@ -1,8 +1,5 @@
-.idea
-examples
-tests
+.idea/
+examples/
+tests/
 .travis.yml
-index2.js
-index3.js
-index4.js
-index5.js
+appveyor.yml
