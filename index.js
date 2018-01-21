@@ -8,8 +8,9 @@ function Pipe2Pam() {
     if (!(this instanceof Pipe2Pam)) {
         return new Pipe2Pam();
     }
-    //set objectMode to true so that we can pipe objects instead of just strings
-    Transform.call(this, {objectMode: true});
+    //set readableObjectMode to true so that we can push objects out
+    //set writableObjectMode to false since we only support receiving buffer
+    Transform.call(this, {writableObjectMode: false, readableObjectMode: true});
     //parsing first chunk should be looking for image header info
     this._parseChunk = this._findHeaders;
 }
