@@ -1,5 +1,7 @@
 # pipe2pam
 ###### [![Build Status](https://travis-ci.org/kevinGodell/pipe2pam.svg?branch=master)](https://travis-ci.org/kevinGodell/pipe2pam) [![Build status](https://ci.appveyor.com/api/projects/status/v29p3vhykt756hvc/branch/master?svg=true)](https://ci.appveyor.com/project/kevinGodell/pipe2pam/branch/master) [![GitHub issues](https://img.shields.io/github/issues/kevinGodell/pipe2pam.svg)](https://github.com/kevinGodell/pipe2pam/issues) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/kevinGodell/pipe2pam/master/LICENSE)
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/kevinGodell/pipe2pam.svg)](https://greenkeeper.io/)
 Parse individual pam images from an ffmpeg pipe when the output video codec (*-c:v*) is set to **pam** and the format (*-f*) is set to **image2pipe**. The supported pixel formats (*-pix_fmt*) are **rgb24**, **rgba**, **gray**, and **monob**. Pam is an image type similar to ppm, pbm, and pgm. It has a small header that is followed by an uncompressed array of pixel data. This can be used as an alternate way to get pixel data instead of generating jpegs and using canvas. It is currently being used for a video motion detection project.
 ### installation:
 ``` 
