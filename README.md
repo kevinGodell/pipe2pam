@@ -7,7 +7,7 @@ npm install pipe2pam --save
 ```
 ### usage:
 The following [example](https://github.com/kevinGodell/pipe2pam/blob/master/examples/example.js) uses ffmpeg's **testsrc** to simulate a video input and generates 100 downscaled grayscale pam images at a rate of 1 per second. The pam images are piped in from ffmpeg's stdout and output a pam image object. Pipe2Pam dispatches a "pam" event, which contains a pam image object. The object contains the entire pam image, plus additional data such as width, height, depth, maxval, tupltype, and an array of pixels. It can also pipe the object to a [pipe reader](https://github.com/kevinGodell/pam-diff) for further use, such as pixel comparison between 2 pam images:
-```
+```javascript
 const P2P = require('pipe2pam');
 const spawn = require('child_process').spawn;
 let counter = 0;
