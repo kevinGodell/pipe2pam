@@ -25,6 +25,7 @@ Pipe2Pam.prototype._parseHeaders = function (data) {
         headerArr = headersArr[i].split(' ');
         headersObj[headerArr[0]] = headerArr[1];
     }
+    this.emit('initialized', { headers: headersObj });
     return headersObj;
 };
 
@@ -121,6 +122,7 @@ Pipe2Pam.prototype._flush = function (callback) {
 
 //reset and delete some cached values
 Pipe2Pam.prototype.resetCache = function () {
+    this.emit('reset');
     delete this._headers;
     delete this._soi;
     delete this._loh;
