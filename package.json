@@ -3,9 +3,22 @@
   "version": "0.6.2",
   "description": "Parse individual pam images from an ffmpeg pipe when output video codec(-c:v) is set to pam and format(-f) is set to image2pipe.",
   "main": "index.js",
+  "devDependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "eslint": "^8.42.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jsdoc": "^4.0.2",
+    "prettier": "^2.8.8"
+  },
   "scripts": {
     "test": "node tests/test.js && node tests/test2.js && node tests/test3.js && node tests/test4.js",
-    "preversion": "npm test"
+    "preversion": "npm test",
+    "postversion": "npm run doc",
+    "pack": "npm --verbose pack",
+    "doc": "./node_modules/.bin/jsdoc index.js -d docs && git commit -m \"update docs\" -- docs",
+    "lint": "./node_modules/.bin/eslint --fix .",
+    "vaco": "node tests/various_configs/test"
   },
   "repository": {
     "type": "git",
@@ -36,5 +49,18 @@
     "url": "https://github.com/kevinGodell/pipe2pam/issues"
   },
   "homepage": "https://github.com/kevinGodell/pipe2pam#readme",
-  "dependencies": {}
+  "files": [
+    "package.json",
+    "index.js",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "funding": [
+    {
+      "url": "https://github.com/kevinGodell"
+    }
+  ]
 }
