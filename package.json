@@ -11,12 +11,13 @@
     "prettier": "^2.8.8"
   },
   "scripts": {
-    "test": "npm run vaco",
+    "test": "npm run vaco && npm run vasi",
     "preversion": "npm test",
     "postversion": "npm run doc",
     "pack": "npm --verbose pack",
     "lint": "./node_modules/.bin/eslint --fix .",
-    "vaco": "node tests/various_configs/test"
+    "vaco": "node tests/various_configs/test",
+    "vasi": "node tests/various_sizes/create-pams && node tests/various_sizes/test"
   },
   "repository": {
     "type": "git",
