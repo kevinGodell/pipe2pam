@@ -25,8 +25,8 @@ class Pipe2Pam extends Transform {
   constructor(options) {
     options = options instanceof Object ? options : {};
     super({ writableObjectMode: false, readableObjectMode: true });
-    if (options.pool > 0) {
-      this.#bufferPool = new BufferPool({ length: options.pool + 1 });
+    if (+options.pool > 0) {
+      this.#bufferPool = new BufferPool({ length: +options.pool + 1 });
       this.#poolLength = this.#bufferPool.length;
       this.#bufferConcat = this.#bufferPool.concat.bind(this.#bufferPool);
     }
