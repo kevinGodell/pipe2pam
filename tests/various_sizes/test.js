@@ -38,7 +38,7 @@ pamFiles.forEach(pamFile => {
       pixelsLength = +data.headers.width * +data.headers.height * +data.headers.depth * (+data.headers.maxval === 65535 ? 2 : 1);
     });
 
-    pipe2pam.on('pam', data => {
+    pipe2pam.on('data', data => {
       pamCounter++;
 
       assert(data.pixels.length === pixelsLength);

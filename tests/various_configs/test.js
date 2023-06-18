@@ -73,7 +73,7 @@ const pipe2pamConfigs = [42, '42', undefined, null, {}, { pool: 1 }, { pool: 2 }
 
         const pipe2pam = new Pipe2Pam(pipe2pamConfig);
 
-        pipe2pam.on('pam', data => {
+        pipe2pam.on('data', data => {
           counter++;
 
           const { width, height, depth, maxval, headers, pixels, pam } = data;
