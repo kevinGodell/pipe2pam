@@ -55,7 +55,7 @@ ffmpegConfigs.forEach(config => {
   const pipe2pam = new Pipe2Pam();
 
   pipe2pam.on('initialized', data => {
-    console.log(data);
+    // console.log(data);
   });
 
   pipe2pam.on('data', data => {
@@ -68,7 +68,7 @@ ffmpegConfigs.forEach(config => {
   });
 
   pipe2pam.on('reset', () => {
-    console.log('reset');
+    // console.log('reset');
   });
 
   const ffmpeg = spawn(ffmpegPath, params, { stdio: ['ignore', 'pipe', 'ignore'] });
