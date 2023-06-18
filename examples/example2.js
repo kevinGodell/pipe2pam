@@ -1,9 +1,13 @@
 'use strict';
 
-const P2P = require('../index');
+const Pipe2Pam = require('../index');
+
 const { spawn } = require('child_process');
+
 const ffmpegPath = require('../lib/ffmpeg');
+
 let counter = 0;
+
 let counter2 = 0;
 
 const params = [
@@ -56,9 +60,9 @@ const params2 = [
   'pipe:1',
 ];
 
-const p2p = new P2P();
+const pipe2pam = new Pipe2Pam();
 
-p2p.on('pam', data => {
+pipe2pam.on('data', data => {
   console.log(`received pam1: ${++counter} data: ${data}`);
 });
 
@@ -72,13 +76,13 @@ ffmpeg.on('exit', (code, signal) => {
   console.log(`exit ${code} ${signal}`);
 });
 
-ffmpeg.stdout.pipe(p2p);
+ffmpeg.stdout.pipe(pipe2pam);
 
 // ///create second ffmpeg pam piping
 
-const p2p2 = new P2P();
+const pipe2pam2 = new Pipe2Pam();
 
-p2p2.on('pam', data => {
+pipe2pam2.on('data', data => {
   console.log(`received pam2: ${++counter2} data: ${data}`);
 });
 
@@ -92,4 +96,4 @@ ffmpeg2.on('exit', (code, signal) => {
   console.log(`exit ${code} ${signal}`);
 });
 
-ffmpeg2.stdout.pipe(p2p2);
+ffmpeg2.stdout.pipe(pipe2pam2);

@@ -1,8 +1,11 @@
 'use strict';
 
-const P2P = require('../index');
+const Pipe2Pam = require('../index');
+
 const { spawn } = require('child_process');
+
 const ffmpegPath = require('../lib/ffmpeg');
+
 let counter = 0;
 
 const params = [
@@ -31,9 +34,9 @@ const params = [
   'pipe:1',
 ];
 
-const p2p = new P2P();
+const pipe2pam = new Pipe2Pam();
 
-p2p.on('pam', data => {
+pipe2pam.on('data', data => {
   // pam data object has .depth .height .maxval .pam .pixels .tupltype .width
   console.log(
     `received pam: ${++counter}, depth: ${data.depth}, height: ${data.height}, maxval: ${data.maxval}, pam.length: ${data.pam.length}, headers.length: ${data.headers.length}, pixels.length: ${
@@ -52,4 +55,4 @@ ffmpeg.on('exit', (code, signal) => {
   console.log(`exit ${code} ${signal}`);
 });
 
-ffmpeg.stdout.pipe(p2p);
+ffmpeg.stdout.pipe(pipe2pam);
