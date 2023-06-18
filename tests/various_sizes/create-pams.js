@@ -58,7 +58,7 @@ ffmpegConfigs.forEach(config => {
     console.log(data);
   });
 
-  pipe2pam.on('pam', data => {
+  pipe2pam.on('data', data => {
     pamCounter++;
     writeFileSync(`${__dirname}/${width}x${height}-${pixFmt}-${pamCounter}.pam`, data.pam);
     assert(data.width * data.height * data.depth === data.pixels.length, 'Pixels are not the correct length');
