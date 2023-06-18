@@ -6,10 +6,12 @@ Parse individual pam images from an ffmpeg pipe when the output video codec (*-c
 npm install pipe2pam --save
 ```
 ### usage:
-The following [example](https://github.com/kevinGodell/pipe2pam/blob/master/examples/example.js) uses ffmpeg's **testsrc** to simulate a video input and generates 100 downscaled grayscale pam images at a rate of 1 per second. The pam images are piped in from ffmpeg's stdout and output a pam image object. Pipe2Pam dispatches a "pam" event, which contains a pam image object. The object contains the entire pam image, plus additional data such as width, height, depth, maxval, tupltype, and an array of pixels. It can also pipe the object to a [pipe reader](https://github.com/kevinGodell/pam-diff) for further use, such as pixel comparison between 2 pam images:
+The following [example](https://github.com/kevinGodell/pipe2pam/blob/master/examples/example.js) uses ffmpeg's **testsrc** to simulate a video input and generates 100 downscaled grayscale pam images at a rate of 1 per second. The pam images are piped in from ffmpeg's stdout and output a pam image object. Pipe2Pam dispatches a "data" event, which contains a pam image object. The object contains the entire pam image, plus additional data such as width, height, depth, maxval, tupltype, and an array of pixels. It can also pipe the object to a [pipe reader](https://github.com/kevinGodell/pam-diff) for further use, such as pixel comparison between 2 pam images:
 ```javascript
-const P2P = require('pipe2pam');
+const Pipe2Pam = require('pipe2pam');
+
 const { spawn } = require('child_process');
+
 let counter = 0;
 
 const params = [
@@ -37,9 +39,9 @@ const params = [
     'pipe:1'
 ];
 
-const p2p = new P2P();
+const pipe2pam = new Pipe2Pam();
 
-p2p.on('pam', (data) => {
+pipe2pam.on('data', (data) => {
     console.log(data);
     console.log('received pam', ++counter);
 });
@@ -54,7 +56,7 @@ ffmpeg.on('exit', (code, signal) => {
     console.log('exit', code, signal);
 });
 
-ffmpeg.stdout.pipe(p2p);
+ffmpeg.stdout.pipe(pipe2pam);
 ```
 ### testing:
 Clone the repository
