@@ -8,15 +8,13 @@
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "jsdoc": "^4.0.2",
     "prettier": "^2.8.8"
   },
   "scripts": {
-    "test": "node tests/test.js && node tests/test2.js && node tests/test3.js && node tests/test4.js",
+    "test": "npm run vaco",
     "preversion": "npm test",
     "postversion": "npm run doc",
     "pack": "npm --verbose pack",
-    "doc": "./node_modules/.bin/jsdoc index.js -d docs && git commit -m \"update docs\" -- docs",
     "lint": "./node_modules/.bin/eslint --fix .",
     "vaco": "node tests/various_configs/test"
   },
@@ -53,7 +51,8 @@
     "package.json",
     "index.js",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "lib/buffer-pool.js"
   ],
   "engines": {
     "node": ">=14"
