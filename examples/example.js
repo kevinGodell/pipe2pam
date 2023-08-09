@@ -41,7 +41,7 @@ pipe2pam.on('data', data => {
   console.log(
     `received pam: ${++counter}, depth: ${data.depth}, height: ${data.height}, maxval: ${data.maxval}, pam.length: ${data.pam.length}, headers.length: ${data.headers.length}, pixels.length: ${
       data.pixels.length
-    }, tupltype: ${data.tupltype}, width: ${data.width}, chunks: ${data.chunks}`
+    }, tupltype: ${data.tupltype}, width: ${data.width}, chunks: ${data.chunks}`,
   );
 });
 

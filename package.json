@@ -4,11 +4,11 @@
   "description": "Parse individual pam images from an ffmpeg pipe when output video codec(-c:v) is set to pam and format(-f) is set to image2pipe.",
   "main": "index.js",
   "devDependencies": {
-    "@ffmpeg-installer/ffmpeg": "^1.1.0",
-    "eslint": "^8.42.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.8"
+    "eslint": "^8.46.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "ffmpeg-static": "^5.1.0",
+    "prettier": "^3.0.1"
   },
   "scripts": {
     "test": "npm run vaco && npm run vasi",
@@ -55,7 +55,7 @@
     "lib/buffer-pool.js"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "funding": [
     {

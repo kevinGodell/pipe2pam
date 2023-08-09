@@ -1,6 +1,6 @@
 'use strict';
 
-const { Transform } = require('stream');
+const { Transform } = require('node:stream');
 
 const BufferPool = require('./lib/buffer-pool');
 
@@ -23,8 +23,8 @@ class Pipe2Pam extends Transform {
   #chunksTotalLength = 0;
 
   constructor(options) {
-    options = options instanceof Object ? options : {};
     super({ writableObjectMode: false, readableObjectMode: true });
+    options = options && typeof options === 'object' ? options : {};
     if (+options.pool > 0) {
       this.#bufferPool = new BufferPool({ length: +options.pool + 1 });
       this.#poolLength = this.#bufferPool.length;
