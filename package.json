@@ -5,10 +5,10 @@
   "main": "index.js",
   "devDependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
-    "eslint": "^8.42.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.8"
+    "eslint": "^8.46.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "prettier": "^3.0.1"
   },
   "scripts": {
     "test": "npm run vaco && npm run vasi",
