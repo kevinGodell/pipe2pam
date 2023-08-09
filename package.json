@@ -4,10 +4,10 @@
   "description": "Parse individual pam images from an ffmpeg pipe when output video codec(-c:v) is set to pam and format(-f) is set to image2pipe.",
   "main": "index.js",
   "devDependencies": {
-    "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "eslint": "^8.46.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
+    "ffmpeg-static": "^5.1.0",
     "prettier": "^3.0.1"
   },
   "scripts": {
